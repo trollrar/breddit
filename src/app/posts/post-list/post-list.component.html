@@ -1,0 +1,26 @@
+<bread-card-box [headerTemplate]="test">
+    <bread-loading *ngIf="loading"></bread-loading>
+    <ng-container *ngIf="!loading">
+        <bread-post-summary *ngFor="let post of posts"
+                            [post]="post"></bread-post-summary>
+    </ng-container>
+</bread-card-box>
+
+<ng-template #test>
+    <div class="header border-bottom border-gray px-3 py-2">
+        <div class="btn-group"
+             ngbDropdown>
+            <button class="btn btn-light border px-1 py-0 dropdown-toggle m-0"
+                    ngbDropdownToggle>
+                <h5 class="d-inline">{{ filterText }}</h5>
+            </button>
+            <h5 class="d-inline-block m-0 ml-1 p-1">bread posts</h5>
+            <div ngbDropdownMenu>
+                <button ngbDropdownItem
+                        (click)="filterChanged('fresh')">Freshly baked</button>
+                <button ngbDropdownItem
+                        (click)="filterChanged('hot')">Hot</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

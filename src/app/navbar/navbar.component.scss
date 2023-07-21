@@ -1,0 +1,13 @@
+:host {
+    display: block;
+
+    .logo {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        background: url(../../assets/bread.png) no-repeat center center;
+        background-size: 90% auto;
+        vertical-align: top;
+    }
+}

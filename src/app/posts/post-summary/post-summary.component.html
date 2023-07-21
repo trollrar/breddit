@@ -1,0 +1,10 @@
+<div class="vote-container">
+    {{ post.score }}
+</div>
+<a class="meta-container"
+   href="#">
+    <h4 class="title">{{ post.title }}</h4>
+    <span class="author text-muted">
+        Posted by <strong>{{ post.from.username }}</strong> {{timeAgo}}
+    </span>
+</a>
