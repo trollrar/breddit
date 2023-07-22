@@ -29,7 +29,6 @@ export class PostListComponent implements OnInit, OnDestroy {
 
     public ngOnInit (): void {
         this.parseQueryParams(this.route.snapshot.queryParams);
-        this.loadPosts();
 
         this.paramsSubscription = this.route.queryParams.subscribe((params: Params): void => {
             this.parseQueryParams(params);
