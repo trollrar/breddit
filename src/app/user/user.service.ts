@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map, take} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -40,7 +40,6 @@ export class UserService {
     public fetchAuthToken (username: string, password: string): Observable<boolean> {
         return this.http.post<{token: string}>('/api/auth/login', {username, password})
             .pipe(
-                take(1),
                 catchError(({error}) => throwError(error && error && error.error || 'Unknown error')),
                 map(({token}) => {
                     localStorage.setItem(USERNAME_STORAGE_KEY, username);

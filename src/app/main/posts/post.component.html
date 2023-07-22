@@ -1,1 +1,12 @@
-<p>post works!</p>
+<bread-card-box>
+    <bread-loading *ngIf="loading"></bread-loading>
+    <ng-container *ngIf="!loading">
+        <div class="header">
+            {{post.title}}
+        </div>
+        {{post.content}}
+        <bread-comment-list [comments]="comments"></bread-comment-list>
+        <bread-comment-form *ngIf="userService.isLoggedIn" [postId]="post.id"
+                            (commentAdded)="reloadComments(post.id)"></bread-comment-form>
+    </ng-container>
+</bread-card-box>

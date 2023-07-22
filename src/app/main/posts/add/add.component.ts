@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {PostsService} from '../posts.service';
 import {Router} from '@angular/router';
 import {Post} from '../post.interface';
+import {ROUTE_POST_LIST} from '../../../app-routing.constants';
 
 @Component({
     selector: 'bread-add',
@@ -33,7 +34,7 @@ export class AddComponent implements OnInit {
         this.postsService.createPost(formData).pipe()
             .subscribe(
                 () => {
-                    this.router.navigate(['/']);
+                    this.router.navigateByUrl(ROUTE_POST_LIST);
                 },
                 (message) => {
                     this.submitted = false;

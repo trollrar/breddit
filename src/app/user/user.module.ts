@@ -10,11 +10,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginGuard} from './login/login.guard';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth/auth.interceptor';
+import {ROUTE_LOGIN} from '../app-routing.constants';
 
 
 const routes: Routes = [
     {
-        path: 'login',
+        path: ROUTE_LOGIN,
         pathMatch: 'full',
         canActivate: [LoginGuard],
         component: LoginComponent,

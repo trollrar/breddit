@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommentsService} from '../comments.service';
 import {Comment} from '../comment.interface';
@@ -12,8 +12,8 @@ export class CommentFormComponent implements OnInit {
     public submitting: boolean = false;
     public error: string = '';
     public form: FormGroup;
-    @Input()
-    public postId: number;
+    @Input() public postId: number;
+    @Output() private readonly commentAdded: EventEmitter<void> = new EventEmitter();
 
     constructor(
         private fb: FormBuilder,
@@ -32,8 +32,14 @@ export class CommentFormComponent implements OnInit {
 
         this.commentService.createComment(this.postId, formData).pipe()
             .subscribe(
-                () => {
+                (success) => {
                     this.submitting = false;
+                    if (!success) {
+                        this.error = 'Unable to comment';
+                        return;
+                    }
+                    this.error = '';
+                    this.commentAdded.emit();
                 },
                 (message) => {
                     this.submitting = false;

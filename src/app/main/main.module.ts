@@ -15,6 +15,7 @@ import {AuthGuard} from '../user/auth/auth.guard';
 import {CommentListComponent} from './posts/comments/comment-list/comment-list.component';
 import {CommentFormComponent} from './posts/comments/comment-form/comment-form.component';
 import {PostComponent} from './posts/post.component';
+import {ROUTE_POST, ROUTE_POST_ADD, ROUTE_POST_LIST} from '../app-routing.constants';
 
 const routes: Routes = [
     {
@@ -22,16 +23,21 @@ const routes: Routes = [
         component: MainComponent,
         children: [
             {
-                path: '',
+                path: ROUTE_POST_LIST,
                 pathMatch: 'full',
                 component: PostListComponent,
             },
             {
-                path: 'add',
+                path: ROUTE_POST_ADD,
                 pathMatch: 'full',
                 component: AddComponent,
                 canActivate: [AuthGuard],
-            }
+            },
+            {
+                path: ROUTE_POST,
+                pathMatch: 'full',
+                component: PostComponent,
+            },
         ]
     }
 ];

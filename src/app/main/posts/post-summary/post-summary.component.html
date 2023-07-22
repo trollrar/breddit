@@ -2,7 +2,7 @@
     {{ post.score }}
 </div>
 <a class="meta-container"
-   href="#">
+   [routerLink]="[postPath]">
     <h4 class="title">{{ post.title }}</h4>
     <span class="author text-muted">
         Posted by <strong>{{ post.from.username }}</strong> {{timeAgo}}

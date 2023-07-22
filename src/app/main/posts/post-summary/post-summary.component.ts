@@ -1,12 +1,13 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {Post} from '../post.interface';
+import {ROUTE_POST} from '../../../app-routing.constants';
 
 @Component({
   selector: 'bread-post-summary',
   templateUrl: './post-summary.component.html',
-  styleUrls: ['./post-summary.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./post-summary.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostSummaryComponent implements OnInit {
     public timeAgo: string = 'calculating';
@@ -14,5 +15,9 @@ export class PostSummaryComponent implements OnInit {
 
     public ngOnInit(): void {
         this.timeAgo = moment(this.post.postedAt).fromNow();
+    }
+
+    get postPath() {
+        return ROUTE_POST.replace(':id', this.post.id.toString());
     }
 }

@@ -1,12 +1,10 @@
-<p>post-comment-form works!</p>
-
 <bread-loading *ngIf="submitting"></bread-loading>
 <form class="p-3"
       *ngIf="!submitting"
       [formGroup]="form"
       (submit)="onSubmit(form.value)">
     <div class="form-group">
-        <label for="content">Content</label>
+        <label for="content">Comment</label>
         <textarea id="content"
                   class="form-control"
                   placeholder="Post content"
