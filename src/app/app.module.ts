@@ -4,16 +4,16 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {AppComponent} from './app.component';
-import {NavbarComponent} from './navbar/navbar.component';
-import {PostsModule} from './posts/posts.module';
 import {SharedModule} from './shared/shared.module';
 import {UserModule} from './user/user.module';
+import {MainModule} from './main/main.module';
 
 const routes: Routes = [
     {
         path: '',
         children: [
-            {path: '', loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)},
+            {path: '', loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
+            {path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
         ],
     },
     {
@@ -25,14 +25,13 @@ const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        NavbarComponent,
     ],
     imports: [
         BrowserModule,
         SharedModule,
         HttpClientModule,
-        PostsModule,
         UserModule,
+        MainModule,
         NgbModalModule,
         RouterModule.forRoot(routes),
         RouterModule,

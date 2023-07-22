@@ -7,7 +7,7 @@ import {PostsService} from '../posts.service';
 const filterMap: Record<PostsFilter, string> = {
     fresh: 'Freshly baked',
     hot: 'Hot',
-}
+};
 
 @Component({
   selector: 'bread-post-list',

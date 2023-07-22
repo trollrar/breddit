@@ -1,6 +1,6 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from '../user/user.service';
+import {UserService} from '../../user/user.service';
 
 @Component({
     selector: 'bread-navbar',
@@ -13,11 +13,7 @@ export class NavbarComponent {
         public userService: UserService,
     ) {}
 
-    public openModal (content: ElementRef<any>): void {
+    public openModal(content: TemplateRef<any>): void {
         this.modalService.open(content);
-    }
-
-    public logout (): void {
-        this.userService.logout();
     }
 }

@@ -4,8 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Post, PostsFilter} from './post.interface';
 import {stringify} from 'query-string';
-import {PostsModule} from './posts.module';
-import {UserService} from '../user/user.service';
+import {UserService} from '../../user/user.service';
 
 @Injectable()
 export class PostsService {

@@ -6,11 +6,22 @@ import {catchError, map} from 'rxjs/operators';
 @Injectable()
 export class UserService {
     private authToken: string;
-    public isLoggedIn: boolean = false;
+    public username: string;
 
-    constructor (private http: HttpClient) {}
+    public get isLoggedIn() {
+        return !!this.authToken;
+    }
 
-    public getAuthHeaders (): {[header: string]: string | string[]} {
+    constructor(private http: HttpClient) {
+        const authToken = localStorage.getItem(USER_JWT_STORAGE_KEY);
+
+        if (authToken != null) {
+            this.username = localStorage.getItem(USERNAME_STORAGE_KEY);
+            this.authToken = authToken;
+        }
+    }
+
+    public getAuthHeaders(): { [header: string]: string | string[] } {
         if (this.authToken) {
             return {
                 authorization: `bearer ${this.authToken}`,
@@ -20,8 +31,10 @@ export class UserService {
     }
 
     public logout (): void {
+        localStorage.removeItem(USERNAME_STORAGE_KEY);
+        localStorage.removeItem(USER_JWT_STORAGE_KEY);
         this.authToken = '';
-        this.isLoggedIn = false;
+        this.username = '';
     }
 
     public fetchAuthToken (username: string, password: string): Observable<boolean> {
@@ -29,10 +42,15 @@ export class UserService {
             .pipe(
                 catchError(({error}) => throwError(error && error && error.error || 'Unknown error')),
                 map(({token}) => {
+                    localStorage.setItem(USERNAME_STORAGE_KEY, username);
+                    localStorage.setItem(USER_JWT_STORAGE_KEY, token);
                     this.authToken = token;
-                    this.isLoggedIn = true;
+                    this.username = username;
                     return true;
                 }),
             );
     }
 }
+
+export const USERNAME_STORAGE_KEY = 'currentUserUsername';
+export const USER_JWT_STORAGE_KEY = 'currentUserJwt';

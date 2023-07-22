@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PostSummaryComponent } from './post-summary.component';
+import {PostSummaryComponent} from './post-summary.component';
 
 describe('PostSummaryComponent', () => {
   let component: PostSummaryComponent;

@@ -35,12 +35,12 @@
     </div>
 </nav>
 
-<ng-template #loginModal
-             let-modal>
+<ng-template #loginModal let-modal>
     <div class="modal-header border-0 pl-5">
         <h5 class="pb-0">Log in to breddit</h5>
         <button class="close"
-                (click)="modal.close()">×</button>
+                (click)="modal.close()">×
+        </button>
     </div>
     <div class="modal-body">
         <bread-login-form (loggedIn)="modal.close()"></bread-login-form>

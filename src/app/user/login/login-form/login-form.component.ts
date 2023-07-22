@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {UserService} from '../user.service';
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'bread-login-form',
@@ -17,7 +16,6 @@ export class LoginFormComponent implements OnInit {
     constructor (
         private fb: FormBuilder,
         private userService: UserService,
-        private router: Router,
     ) {}
 
     public ngOnInit (): void {
