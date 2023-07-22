@@ -1,31 +1,33 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, take} from 'rxjs/operators';
 import {Post, PostsFilter} from './post.interface';
 import {stringify} from 'query-string';
-import {UserService} from '../../user/user.service';
 
 @Injectable()
 export class PostsService {
     constructor (
         private http: HttpClient,
-        private userService: UserService,
     ) {}
 
-    public getPostList (filter: PostsFilter): Observable<Post[]> {
+    public getPostList(filter: PostsFilter): Observable<Post[]> {
         const queryString: string = stringify({filter});
         return this.http.get<Post[]>(`/api/posts/all?${queryString}`)
-            .pipe();
+            .pipe(take(1));
     }
 
-    public createPost (post: Post): Observable<boolean> {
+    public createPost(post: Post): Observable<boolean> {
         return this.http.post(
             '/api/posts/new',
             post,
-            {
-                headers: this.userService.getAuthHeaders(),
-            },
-        ).pipe(map(() => true));
+        ).pipe(take(1), map(() => true));
+    }
+
+    public upvotePost(postId: number, upvote: boolean): Observable<boolean> {
+        return this.http.post(
+            `/api/posts/${postId}/${upvote ? 'up' : 'down'}`,
+            {}
+        ).pipe(take(1), map(() => true));
     }
 }

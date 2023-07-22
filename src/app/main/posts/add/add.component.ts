@@ -29,7 +29,7 @@ export class AddComponent implements OnInit {
     public onSubmit (formData: any): void {
         this.submitted = true;
 
-        this.postsService.createPost(formData)
+        this.postsService.createPost(formData).pipe()
             .subscribe(
                 () => {
                     this.router.navigate(['/']);
@@ -38,6 +38,6 @@ export class AddComponent implements OnInit {
                     this.submitted = false;
                     this.error = message;
                 }
-            )
+            );
     }
 }

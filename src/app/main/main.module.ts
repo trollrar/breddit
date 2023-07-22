@@ -12,6 +12,9 @@ import {AddComponent} from './posts/add/add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PostsService} from './posts/posts.service';
 import {AuthGuard} from '../user/auth/auth.guard';
+import {PostCommentListComponent} from './posts/post-comments/post-comment-list/post-comment-list.component';
+import {PostCommentFormComponent} from './posts/post-comments/post-comment-form/post-comment-form.component';
+import {PostComponent} from './posts/post.component';
 
 const routes: Routes = [
     {
@@ -40,6 +43,9 @@ const routes: Routes = [
         PostListComponent,
         PostSummaryComponent,
         AddComponent,
+        PostCommentListComponent,
+        PostCommentFormComponent,
+        PostComponent,
     ],
     imports: [
         CommonModule,

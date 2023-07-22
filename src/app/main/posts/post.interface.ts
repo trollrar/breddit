@@ -9,4 +9,6 @@ export interface Post {
     score: number;
     postedAt: string;
     from: User;
+    // TODO: fix backend so that voted value is actually sent
+    voted: boolean;
 }

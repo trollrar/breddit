@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../user.service';
-import {take} from 'rxjs/operators';
 
 @Component({
     selector: 'bread-login-form',
@@ -31,7 +30,6 @@ export class LoginFormComponent implements OnInit {
         this.submitted = true;
 
         this.userService.fetchAuthToken(formData.username, formData.password)
-            .pipe(take(1))
             .subscribe(
                 () => {
                     this.loggedIn.emit(true);
