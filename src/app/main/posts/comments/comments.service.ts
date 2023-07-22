@@ -1,27 +1,27 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {PostComment} from './post-comment.interface';
+import {Comment} from './comment.interface';
 import {map, take} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PostCommentsService {
+export class CommentsService {
 
     constructor(private http: HttpClient) {
     }
 
-    public getPostComments(postId: number): Observable<PostComment[]> {
-        return this.http.get<PostComment[]>(
+    public getComments(postId: number): Observable<Comment[]> {
+        return this.http.get<Comment[]>(
             `/api/posts/${postId}/comment`,
         ).pipe(take(1));
     }
 
-    public createPostComment(postId: number, content: string): Observable<boolean> {
+    public createComment(postId: number, comment: Comment): Observable<boolean> {
         return this.http.post(
             `/api/posts/${postId}/comment`,
-            {content}
+            comment
         ).pipe(take(1), map(() => true));
     }
 }

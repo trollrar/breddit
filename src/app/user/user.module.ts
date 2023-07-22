@@ -8,6 +8,8 @@ import {AuthGuard} from './auth/auth.guard';
 import {LoginComponent} from './login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginGuard} from './login/login.guard';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 
 const routes: Routes = [
@@ -31,6 +33,11 @@ const routes: Routes = [
         UserService,
         AuthGuard,
         LoginGuard,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
     ],
     imports: [
         CommonModule,

@@ -1,6 +1,6 @@
 import {User} from '../../../user/user.interface';
 
-export interface PostComment {
+export interface Comment {
     content: string;
     from: User;
     fromId: number;

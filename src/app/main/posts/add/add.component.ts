@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PostsService} from '../posts.service';
 import {Router} from '@angular/router';
+import {Post} from '../post.interface';
 
 @Component({
     selector: 'bread-add',
@@ -26,7 +27,7 @@ export class AddComponent implements OnInit {
         });
     }
 
-    public onSubmit (formData: any): void {
+    public onSubmit(formData: Post): void {
         this.submitted = true;
 
         this.postsService.createPost(formData).pipe()

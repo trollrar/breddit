@@ -1,0 +1,19 @@
+<p>post-comment-form works!</p>
+
+<bread-loading *ngIf="submitting"></bread-loading>
+<form class="p-3"
+      *ngIf="!submitting"
+      [formGroup]="form"
+      (submit)="onSubmit(form.value)">
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea id="content"
+                  class="form-control"
+                  placeholder="Post content"
+                  [formControlName]="'content'"></textarea>
+    </div>
+    <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+    <button type="submit"
+            class="btn btn-primary">Submit
+    </button>
+</form>
