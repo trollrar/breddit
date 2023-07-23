@@ -31,15 +31,14 @@ export class AddComponent implements OnInit {
     public onSubmit(formData: Post): void {
         this.submitted = true;
 
-        this.postsService.createPost(formData).pipe()
-            .subscribe(
-                () => {
-                    this.router.navigateByUrl(ROUTE_POST_LIST);
-                },
-                (message) => {
-                    this.submitted = false;
-                    this.error = message;
-                }
-            );
+        this.postsService.createPost(formData).subscribe(
+            () => {
+                this.router.navigateByUrl(ROUTE_POST_LIST);
+            },
+            (message) => {
+                this.submitted = false;
+                this.error = message;
+            }
+        );
     }
 }

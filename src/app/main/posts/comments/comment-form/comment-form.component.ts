@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CommentsService} from '../comments.service';
 import {Comment} from '../comment.interface';
+import {UserService} from '../../../../user/user.service';
+import {User} from '../../../../user/user.interface';
 
 @Component({
     selector: 'bread-comment-form',
@@ -13,11 +15,12 @@ export class CommentFormComponent implements OnInit {
     public error: string = '';
     public form: FormGroup;
     @Input() public postId: number;
-    @Output() private readonly commentAdded: EventEmitter<void> = new EventEmitter();
+    @Output() private readonly commentAdded: EventEmitter<Comment> = new EventEmitter();
 
     constructor(
         private fb: FormBuilder,
         private commentService: CommentsService,
+        public userService: UserService
     ) {
     }
 
@@ -29,17 +32,19 @@ export class CommentFormComponent implements OnInit {
 
     public onSubmit(formData: Comment): void {
         this.submitting = true;
+        const user = {username: this.userService.username} as User;
 
-        this.commentService.createComment(this.postId, formData).pipe()
+        this.commentService.createComment(this.postId, formData)
             .subscribe(
-                (success) => {
+                (comment) => {
                     this.submitting = false;
-                    if (!success) {
+                    if (!comment) {
                         this.error = 'Unable to comment';
                         return;
                     }
                     this.error = '';
-                    this.commentAdded.emit();
+                    comment.from = user;
+                    this.commentAdded.emit(comment);
                 },
                 (message) => {
                     this.submitting = false;

@@ -16,6 +16,8 @@ import {CommentListComponent} from './posts/comments/comment-list/comment-list.c
 import {CommentFormComponent} from './posts/comments/comment-form/comment-form.component';
 import {PostComponent} from './posts/post.component';
 import {ROUTE_POST, ROUTE_POST_ADD, ROUTE_POST_LIST} from '../app-routing.constants';
+import {PostVotesComponent} from './posts/post-votes/post-votes.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
     {
@@ -52,6 +54,7 @@ const routes: Routes = [
         CommentListComponent,
         CommentFormComponent,
         PostComponent,
+        PostVotesComponent,
     ],
     imports: [
         CommonModule,
@@ -61,6 +64,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         UserModule,
         SharedModule,
+        FontAwesomeModule,
     ],
     providers: [PostsService,
     ],

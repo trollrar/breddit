@@ -1,10 +1,11 @@
 <div class="vote-container">
-    {{ post.score }}
+    <bread-post-votes [postId]="post.id" [upvoted]="post.voted" [score]="post.score" [column]="false"
+                      (onVote)="onVote($event)"></bread-post-votes>
 </div>
 <a class="meta-container"
    [routerLink]="[postPath]">
     <h4 class="title">{{ post.title }}</h4>
     <span class="author text-muted">
-        Posted by <strong>{{ post.from.username }}</strong> {{timeAgo}}
+        Posted by <strong>{{ post.from.username }}</strong> {{post.postedAt | timeAgo}}
     </span>
 </a>

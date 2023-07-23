@@ -1,0 +1,10 @@
+<div [class.flex-column]="column" [class.justify-content-center]="column" class="d-flex align-items-center px-1">
+    <button class="btn" [disabled]="upvoted === true || loading" (click)="vote(true)">
+        <fa-icon [icon]="['fas', 'long-arrow-alt-up']"></fa-icon>
+    </button>
+    <div class="text-center">{{score}}</div>
+    <button class="btn" [disabled]="upvoted === false || loading" (click)="vote(false)">
+        <fa-icon [icon]="['fas', 'long-arrow-alt-down']"></fa-icon>
+    </button>
+</div>
+

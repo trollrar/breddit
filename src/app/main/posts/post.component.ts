@@ -12,6 +12,7 @@ import {UserService} from '../../user/user.service';
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss']
 })
+// TODO: PostComponent assumes that backend is fixed and voted value is sent with posts
 export class PostComponent implements OnInit {
 
     public post: Post;
@@ -55,10 +56,14 @@ export class PostComponent implements OnInit {
         });
     }
 
-    public reloadComments(id: number) {
-        this.commentService.getComments(id).subscribe(comments => {
-            this.comments = comments;
-        });
+    public reloadComments(comment: Comment) {
+        // All comments need to be fetched again since adding comment does not respond with created comment but true or false
+        this.comments.push(comment);
+    }
+
+    public onVote(voteValue: number) {
+        this.post.voted = voteValue > 0;
+        this.post.score += voteValue;
     }
 
     private rerouteToPostList(): void {

@@ -1,45 +1,50 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark my-3 rounded">
+<nav class="navbar navbar-expand navbar-dark bg-dark my-3 rounded">
     <a [routerLink]="['/']"
        class="navbar-brand">
         <span class="logo"></span>breddit
     </a>
-    <button class="navbar-toggler">
-        <span class="navbar-toggle-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse">
-        <ul class="ml-auto navbar-nav">
-            <li class="nav-item">
-                <a [routerLink]="['/']"
-                   class="nav-link">Home</a>
+    <ul class="ml-auto navbar-nav">
+        <li class="nav-item">
+            <a [routerLink]="['/']"
+               class="nav-link">
+                <fa-icon [icon]="['fas', 'home']"></fa-icon>
+            </a>
+        </li>
+        <ng-container *ngIf="!userService.isLoggedIn">
+            <li class="nav-item ml-1 pl-2 border-left border-secondary">
+                <a href="javascript:void(0)"
+                   class="nav-link"
+                   (click)="openModal(loginModal)">Login
+                    <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
+                </a>
             </li>
-            <ng-container *ngIf="!userService.isLoggedIn">
-                <li class="nav-item">
-                    <a href="javascript:void(0)"
-                       class="nav-link"
-                       (click)="openModal(loginModal)">Login</a>
-                </li>
-            </ng-container>
-            <ng-container *ngIf="userService.isLoggedIn">
-                <li class="nav-item">
-                    <a href="javascript:void(0)"
-                       class="nav-link"
-                       [routerLink]="[addPostPath]">Add bread post</a>
-                </li>
-                <li class="nav-item d-inline">
-                    <a href="javascript:void(0)"
-                       class="nav-link"
-                       (click)="userService.logout()">Logout</a>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
+        </ng-container>
+        <ng-container *ngIf="userService.isLoggedIn">
+            <li class="nav-item">
+                <a href="javascript:void(0)"
+                   class="nav-link"
+                   [routerLink]="[addPostPath]">
+                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </a>
+            </li>
+            <li class="nav-item ml-1 pl-2 border-left border-secondary d-flex align-items-center">
+                <span class="text-light">{{userService.username}}</span>
+                <a href="javascript:void(0)"
+                   class="nav-link"
+                   (click)="userService.logout()">
+                    <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
+                </a>
+            </li>
+        </ng-container>
+    </ul>
 </nav>
 
 <ng-template #loginModal let-modal>
-    <div class="modal-header border-0 pl-5">
-        <h5 class="pb-0">Log in to breddit</h5>
-        <button class="close"
-                (click)="modal.close()">×
+    <div class="modal-header border-0 d-flex align-items-center">
+        <h5>Log in to breddit</h5>
+        <button class="btn rounded-circle"
+                (click)="modal.close()">
+            <fa-icon [icon]="['fas', 'times']"></fa-icon>
         </button>
     </div>
     <div class="modal-body">

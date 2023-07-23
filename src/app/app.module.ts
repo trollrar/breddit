@@ -7,6 +7,8 @@ import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
 import {UserModule} from './user/user.module';
 import {MainModule} from './main/main.module';
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {initIconLibrary} from './icons';
 
 const routes: Routes = [
     {
@@ -35,8 +37,13 @@ const routes: Routes = [
         NgbModalModule,
         RouterModule.forRoot(routes),
         RouterModule,
+        FontAwesomeModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(library: FaIconLibrary) {
+        initIconLibrary(library);
+    }
+}

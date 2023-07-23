@@ -16,7 +16,7 @@ export class NavbarComponent {
     }
 
     public get addPostPath() {
-        return ROUTE_POST_ADD;
+        return '/' + ROUTE_POST_ADD;
     }
 
     public openModal(content: TemplateRef<any>): void {

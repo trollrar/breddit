@@ -14,8 +14,7 @@ export class PostsService {
 
     public getPostList(filter: PostsFilter): Observable<Post[]> {
         const queryString: string = stringify({filter});
-        return this.http.get<Post[]>(`/api/posts/all?${queryString}`)
-            .pipe();
+        return this.http.get<Post[]>(`/api/posts/all?${queryString}`);
     }
 
     // TODO: Actually create api route to fetch one post
@@ -32,9 +31,9 @@ export class PostsService {
     }
 
     public upvotePost(postId: number, upvote: boolean): Observable<boolean> {
-        return this.http.post(
-            `/api/posts/${postId}/${upvote ? 'up' : 'down'}`,
+        return this.http.post<any>(
+            `/api/posts/${postId}/vote/${upvote ? 'up' : 'down'}`,
             {}
-        ).pipe(map(() => true));
+        ).pipe(map(({mode}) => mode));
     }
 }

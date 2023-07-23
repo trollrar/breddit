@@ -1,4 +1,4 @@
-<bread-card-box [headerTemplate]="test">
+<bread-card-box [headerTemplate]="filterTemplate">
     <bread-loading *ngIf="loading"></bread-loading>
     <ng-container *ngIf="!loading">
         <bread-post-summary *ngFor="let post of posts"
@@ -6,21 +6,20 @@
     </ng-container>
 </bread-card-box>
 
-<ng-template #test>
+<ng-template #filterTemplate>
     <div class="header border-bottom border-gray px-3 py-2">
-        <div class="btn-group"
-             ngbDropdown>
-            <button class="btn btn-light border px-1 py-0 dropdown-toggle m-0"
-                    ngbDropdownToggle>
-                <h5 class="d-inline">{{ filterText }}</h5>
+        <h5>Bread posts</h5>
+        <div class="d-flex">
+            <button [class.btn-outline-dark]="filter !== 'hot'" [class.btn-dark]="filter === 'hot'"
+                    class="btn btn-sm rounded-pill" (click)="filterChanged('hot')">
+                <fa-icon [icon]="['fas', 'fire']"></fa-icon>
+                Hot
             </button>
-            <h5 class="d-inline-block m-0 ml-1 p-1">bread posts</h5>
-            <div ngbDropdownMenu>
-                <button ngbDropdownItem
-                        (click)="filterChanged('fresh')">Freshly baked</button>
-                <button ngbDropdownItem
-                        (click)="filterChanged('hot')">Hot</button>
-            </div>
+            <button [class.btn-outline-dark]="filter !== 'fresh'" [class.btn-dark]="filter === 'fresh'"
+                    class="ml-2 btn btn-sm rounded-pill" (click)="filterChanged('fresh')">
+                <fa-icon [icon]="['fas', 'bread-slice']"></fa-icon>
+                Freshly baked
+            </button>
         </div>
     </div>
 </ng-template>

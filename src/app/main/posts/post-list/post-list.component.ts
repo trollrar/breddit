@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     public posts: Post[] = [];
     public loading: boolean = false;
     public filterText: string = 'Freshly baked';
-    private filter: 'hot' | 'fresh' = 'hot';
+    public filter: 'hot' | 'fresh' = 'hot';
     private paramsSubscription: Subscription;
 
     constructor (
