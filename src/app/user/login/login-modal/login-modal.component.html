@@ -1,0 +1,10 @@
+<div class="modal-header border-0 d-flex align-items-center">
+    <h5>Log in to breddit</h5>
+    <button class="btn rounded-circle"
+            (click)="modal.dismiss()">
+        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+    </button>
+</div>
+<div class="modal-body">
+    <bread-login-form (loggedIn)="modal.close()"></bread-login-form>
+</div>

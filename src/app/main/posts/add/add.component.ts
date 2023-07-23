@@ -35,9 +35,9 @@ export class AddComponent implements OnInit {
             () => {
                 this.router.navigateByUrl(ROUTE_POST_LIST);
             },
-            (message) => {
+            ({error}) => {
                 this.submitted = false;
-                this.error = message;
+                this.error = error;
             }
         );
     }

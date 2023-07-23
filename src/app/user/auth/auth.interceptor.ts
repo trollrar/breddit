@@ -4,7 +4,6 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
-import {ROUTE_LOGIN} from '../../app-routing.constants';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 401) {
                     this.userService.logout();
-                    this.router.navigate([ROUTE_LOGIN], {queryParams: {returnTo: this.router.url}});
+                    this.userService.openLoginModal();
                 }
 
                 return throwError(error);

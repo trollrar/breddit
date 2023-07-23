@@ -33,22 +33,19 @@ export class CommentFormComponent implements OnInit {
     public onSubmit(formData: Comment): void {
         this.submitting = true;
         const user = {username: this.userService.username} as User;
+        this.error = '';
 
         this.commentService.createComment(this.postId, formData)
             .subscribe(
                 (comment) => {
-                    this.submitting = false;
-                    if (!comment) {
-                        this.error = 'Unable to comment';
-                        return;
-                    }
-                    this.error = '';
                     comment.from = user;
                     this.commentAdded.emit(comment);
                 },
-                (message) => {
+                ({error}) => {
+                    this.error = error;
+                },
+                () => {
                     this.submitting = false;
-                    this.error = message;
                 }
             );
     }

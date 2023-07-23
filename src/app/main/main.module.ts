@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NavbarComponent} from './navbar/navbar.component';
 import {SharedModule} from '../shared/shared.module';
 import {UserModule} from '../user/user.module';
-import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 import {MainComponent} from './main.component';
 import {PostListComponent} from './posts/post-list/post-list.component';
 import {PostSummaryComponent} from './posts/post-summary/post-summary.component';
@@ -65,6 +65,7 @@ const routes: Routes = [
         UserModule,
         SharedModule,
         FontAwesomeModule,
+        NgbTooltipModule,
     ],
     providers: [PostsService,
     ],

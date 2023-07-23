@@ -11,7 +11,7 @@ export class LoginFormComponent implements OnInit {
     public form: FormGroup;
     public submitted: boolean = false;
     public errorMessage: string = '';
-    @Output() private readonly loggedIn: EventEmitter<boolean> = new EventEmitter();
+    @Output() private readonly loggedIn: EventEmitter<void> = new EventEmitter();
 
     constructor (
         private fb: FormBuilder,
@@ -32,11 +32,11 @@ export class LoginFormComponent implements OnInit {
         this.userService.fetchAuthToken(formData.username, formData.password)
             .subscribe(
                 () => {
-                    this.loggedIn.emit(true);
+                    this.loggedIn.emit();
                 },
-                (message) => {
+                (error) => {
                     this.submitted = false;
-                    this.errorMessage = message;
+                    this.errorMessage = error;
                 }
             );
     }

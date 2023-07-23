@@ -1,7 +1,7 @@
 <bread-card-box [headerTemplate]="filterTemplate">
     <bread-loading *ngIf="loading"></bread-loading>
     <ng-container *ngIf="!loading">
-        <bread-post-summary *ngFor="let post of posts"
+        <bread-post-summary *ngFor="let post of (filter === 'fresh') ? posts.reverse() : posts"
                             [post]="post"></bread-post-summary>
     </ng-container>
 </bread-card-box>

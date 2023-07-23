@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PostsService} from '../posts.service';
+import {UserService} from '../../../user/user.service';
 
 @Component({
     selector: 'bread-post-votes',
@@ -14,10 +15,14 @@ export class PostVotesComponent {
     @Output() public onVote: EventEmitter<number> = new EventEmitter<number>();
     public loading: boolean;
 
-    constructor(public postsService: PostsService) {
+    constructor(private postsService: PostsService, private userService: UserService) {
     }
 
     public vote(upvote: boolean) {
+        if (!this.userService.isLoggedIn) {
+            this.userService.openLoginModal();
+            return;
+        }
         this.loading = true;
         this.postsService.upvotePost(this.postId, upvote).subscribe(
             (mode) => {

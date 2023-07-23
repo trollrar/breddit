@@ -6,6 +6,8 @@
     <ul class="ml-auto navbar-nav">
         <li class="nav-item">
             <a [routerLink]="['/']"
+               ngbTooltip="Home"
+               placement="bottom"
                class="nav-link">
                 <fa-icon [icon]="['fas', 'home']"></fa-icon>
             </a>
@@ -14,7 +16,7 @@
             <li class="nav-item ml-1 pl-2 border-left border-secondary">
                 <a href="javascript:void(0)"
                    class="nav-link"
-                   (click)="openModal(loginModal)">Login
+                   (click)="userService.openLoginModal()">Login
                     <fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon>
                 </a>
             </li>
@@ -23,6 +25,8 @@
             <li class="nav-item">
                 <a href="javascript:void(0)"
                    class="nav-link"
+                   ngbTooltip="Add Post"
+                   placement="bottom"
                    [routerLink]="[addPostPath]">
                     <fa-icon [icon]="['fas', 'plus']"></fa-icon>
                 </a>
@@ -31,6 +35,8 @@
                 <span class="text-light">{{userService.username}}</span>
                 <a href="javascript:void(0)"
                    class="nav-link"
+                   ngbTooltip="Logout"
+                   placement="bottom"
                    (click)="userService.logout()">
                     <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
                 </a>
@@ -38,16 +44,3 @@
         </ng-container>
     </ul>
 </nav>
-
-<ng-template #loginModal let-modal>
-    <div class="modal-header border-0 d-flex align-items-center">
-        <h5>Log in to breddit</h5>
-        <button class="btn rounded-circle"
-                (click)="modal.close()">
-            <fa-icon [icon]="['fas', 'times']"></fa-icon>
-        </button>
-    </div>
-    <div class="modal-body">
-        <bread-login-form (loggedIn)="modal.close()"></bread-login-form>
-    </div>
-</ng-template>

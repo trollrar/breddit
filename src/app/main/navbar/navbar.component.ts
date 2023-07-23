@@ -1,5 +1,4 @@
-import {Component, TemplateRef} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component} from '@angular/core';
 import {UserService} from '../../user/user.service';
 import {ROUTE_POST_ADD} from '../../app-routing.constants';
 
@@ -10,16 +9,11 @@ import {ROUTE_POST_ADD} from '../../app-routing.constants';
 })
 export class NavbarComponent {
     constructor(
-        private modalService: NgbModal,
         public userService: UserService,
     ) {
     }
 
     public get addPostPath() {
         return '/' + ROUTE_POST_ADD;
-    }
-
-    public openModal(content: TemplateRef<any>): void {
-        this.modalService.open(content);
     }
 }

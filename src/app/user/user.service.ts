@@ -2,6 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LoginModalComponent} from './login/login-modal/login-modal.component';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UserService {
@@ -12,7 +15,7 @@ export class UserService {
         return !!this.authToken;
     }
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private modalService: NgbModal, private router: Router) {
         const authToken = localStorage.getItem(USER_JWT_STORAGE_KEY);
 
         if (authToken != null) {
@@ -40,7 +43,7 @@ export class UserService {
     public fetchAuthToken (username: string, password: string): Observable<boolean> {
         return this.http.post<{token: string}>('/api/auth/login', {username, password})
             .pipe(
-                catchError(({error}) => throwError(error && error && error.error || 'Unknown error')),
+                catchError(({error}) => throwError(error && error.error || 'Unknown error')),
                 map(({token}) => {
                     localStorage.setItem(USERNAME_STORAGE_KEY, username);
                     localStorage.setItem(USER_JWT_STORAGE_KEY, token);
@@ -49,6 +52,20 @@ export class UserService {
                     return true;
                 }),
             );
+    }
+
+    public openLoginModal(returnTo?: string) {
+        if (this.modalService.hasOpenModals()) {
+            return;
+        }
+        const ref = this.modalService.open(LoginModalComponent);
+        if (returnTo) {
+            ref.result.then(
+                () => {
+                    this.router.navigateByUrl(returnTo);
+                }
+            );
+        }
     }
 }
 

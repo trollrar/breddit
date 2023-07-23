@@ -5,27 +5,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from './user.service';
 import {SharedModule} from '../shared/shared.module';
 import {AuthGuard} from './auth/auth.guard';
-import {LoginComponent} from './login/login.component';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginGuard} from './login/login.guard';
+import {LoginModalComponent} from './login/login-modal/login-modal.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth/auth.interceptor';
-import {ROUTE_LOGIN} from '../app-routing.constants';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
-
-const routes: Routes = [
-    {
-        path: ROUTE_LOGIN,
-        pathMatch: 'full',
-        canActivate: [LoginGuard],
-        component: LoginComponent,
-    }
-];
 
 @NgModule({
     declarations: [
         LoginFormComponent,
-        LoginComponent,
+        LoginModalComponent,
     ],
     exports: [
         LoginFormComponent,
@@ -33,7 +22,6 @@ const routes: Routes = [
     providers: [
         UserService,
         AuthGuard,
-        LoginGuard,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
@@ -45,7 +33,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         FormsModule,
         SharedModule,
-        RouterModule.forChild(routes),
+        FontAwesomeModule,
     ]
 })
 export class UserModule {}
