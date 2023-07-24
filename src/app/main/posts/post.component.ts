@@ -47,7 +47,7 @@ export class PostComponent implements OnInit {
 
         combineLatest([this.postsService.getPostById(id), this.commentService.getComments(id)]).subscribe(([post, comments]) => {
                 this.post = post;
-                this.comments = comments;
+                this.comments = comments.reverse();
 
                 this.metaService.setTitle(post.title);
                 this.metaService.setTag('description', post.content.length < 150 ? post.content.slice(0, 150) : `${post.content}...`);

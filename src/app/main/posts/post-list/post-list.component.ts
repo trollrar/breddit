@@ -56,7 +56,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.paramsSubscription = this.postsService.getPostList(this.filter)
             .subscribe((posts: Post[]) => {
-                this.posts = posts;
+                this.posts = (this.filter === 'fresh') ? posts.reverse() : posts;
                 this.loading = false;
             });
     }
