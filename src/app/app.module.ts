@@ -12,6 +12,8 @@ import {initIconLibrary} from './icons';
 import {MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning} from '@ngx-meta/core';
 import {environment} from '../environments/environment';
 
+declare var require: any;
+
 function metaFactory(): MetaLoader {
     return new MetaStaticLoader({
         pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
@@ -21,7 +23,7 @@ function metaFactory(): MetaLoader {
         defaults: {
             title: 'breddit',
             description: 'Best bread recipes in the universe!',
-            'og:image': `${environment.canonicalUrl}/bread.png`,
+            'og:image': `${environment.canonicalUrl}/${require('../assets/bread.png').default as string}`,
             'og:type': 'website',
             'og:locale': 'en_US',
         }
