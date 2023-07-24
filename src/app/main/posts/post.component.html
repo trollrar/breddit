@@ -1,4 +1,4 @@
-<bread-card-box>
+<bread-card-box *ngIf="!notFound">
     <bread-loading *ngIf="loading"></bread-loading>
     <ng-container *ngIf="!loading">
         <div class="py-3 d-flex">
@@ -25,3 +25,4 @@
         </div>
     </ng-container>
 </bread-card-box>
+<bread-not-found *ngIf="notFound"></bread-not-found>

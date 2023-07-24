@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+    canonicalUrl: 'http://ghpages.trollrar.breddit',
+    production: true
 };

@@ -5,7 +5,7 @@ import {PostsService} from './posts.service';
 import {CommentsService} from './comments/comments.service';
 import {Comment} from './comments/comment.interface';
 import {combineLatest} from 'rxjs';
-import {UserService} from '../../user/user.service';
+import {MetaService} from '@ngx-meta/core';
 
 @Component({
     selector: 'bread-post',
@@ -17,6 +17,7 @@ export class PostComponent implements OnInit {
 
     public post: Post;
     public loading: boolean = true;
+    public notFound: boolean = false;
     public comments: Comment[] = [];
 
 
@@ -25,7 +26,7 @@ export class PostComponent implements OnInit {
         private postsService: PostsService,
         private router: Router,
         private commentService: CommentsService,
-        public userService: UserService,
+        private metaService: MetaService,
     ) {
     }
 
@@ -33,7 +34,7 @@ export class PostComponent implements OnInit {
         this.route.paramMap.subscribe((params) => {
             const postId = Number(params.get('id'));
             if (!postId) {
-                this.rerouteToPostList();
+                this.showNotFound();
                 return;
             }
 
@@ -45,15 +46,18 @@ export class PostComponent implements OnInit {
         this.loading = true;
 
         combineLatest([this.postsService.getPostById(id), this.commentService.getComments(id)]).subscribe(([post, comments]) => {
-            if (!post) {
-                this.rerouteToPostList();
-                return;
-            }
+                this.post = post;
+                this.comments = comments;
 
-            this.post = post;
-            this.comments = comments;
-            this.loading = false;
-        });
+                this.metaService.setTitle(post.title);
+                this.metaService.setTag('description', post.content.length < 150 ? post.content.slice(0, 150) : `${post.content}...`);
+            }, ({status}) => {
+                if (status === 404) {
+                    this.showNotFound();
+                }
+            },
+            () => this.loading = false
+        );
     }
 
     public reloadComments(comment: Comment) {
@@ -66,7 +70,7 @@ export class PostComponent implements OnInit {
         this.post.score += voteValue;
     }
 
-    private rerouteToPostList(): void {
-        this.router.navigateByUrl('/');
+    private showNotFound(): void {
+        this.notFound = true;
     }
 }

@@ -18,28 +18,54 @@ import {PostComponent} from './posts/post.component';
 import {ROUTE_POST, ROUTE_POST_ADD, ROUTE_POST_LIST} from '../app-routing.constants';
 import {PostVotesComponent} from './posts/post-votes/post-votes.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MetaGuard} from '@ngx-meta/core';
+import {NotFoundComponent} from '../shared/not-found/not-found.component';
 
 const routes: Routes = [
     {
         path: '',
         component: MainComponent,
+        canActivateChild: [MetaGuard],
         children: [
             {
                 path: ROUTE_POST_LIST,
                 pathMatch: 'full',
                 component: PostListComponent,
+                data: {
+                    meta: {
+                        title: 'Bread posts',
+                        description: 'New fresh bread posts every day!'
+                    }
+                }
             },
             {
                 path: ROUTE_POST_ADD,
                 pathMatch: 'full',
                 component: AddComponent,
                 canActivate: [AuthGuard],
+                data: {
+                    meta: {
+                        title: 'Add bread post',
+                        description: 'Just write something about bread.',
+                    }
+                }
             },
             {
                 path: ROUTE_POST,
                 pathMatch: 'full',
                 component: PostComponent,
+                data: {
+                    meta: {
+                        title: 'Loading post',
+                        description: 'Wait a little...',
+                        'og:type': 'article'
+                    }
+                }
             },
+            {
+                path: '**',
+                component: NotFoundComponent,
+            }
         ]
     }
 ];

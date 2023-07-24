@@ -9,18 +9,29 @@ import {UserModule} from './user/user.module';
 import {MainModule} from './main/main.module';
 import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {initIconLibrary} from './icons';
+import {MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning} from '@ngx-meta/core';
+import {environment} from '../environments/environment';
+
+function metaFactory(): MetaLoader {
+    return new MetaStaticLoader({
+        pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
+        pageTitleSeparator: ' - ',
+        applicationName: 'breddit',
+        applicationUrl: environment.canonicalUrl,
+        defaults: {
+            title: 'breddit',
+            description: 'Best bread recipes in the universe!',
+            'og:image': `${environment.canonicalUrl}/bread.png`,
+            'og:type': 'website',
+            'og:locale': 'en_US',
+        }
+    });
+}
 
 const routes: Routes = [
     {
         path: '',
-        children: [
-            {path: '', loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
-            {path: '', loadChildren: () => import('./user/user.module').then(m => m.UserModule)},
-        ],
-    },
-    {
-        path: '*',
-        redirectTo: '/',
+        children: [{path: '', loadChildren: () => import('./main/main.module').then(m => m.MainModule)}],
     }
 ];
 
@@ -36,7 +47,10 @@ const routes: Routes = [
         MainModule,
         NgbModalModule,
         RouterModule.forRoot(routes),
-        RouterModule,
+        MetaModule.forRoot({
+            provide: MetaLoader,
+            useFactory: (metaFactory)
+        }),
         FontAwesomeModule,
     ],
     providers: [],
