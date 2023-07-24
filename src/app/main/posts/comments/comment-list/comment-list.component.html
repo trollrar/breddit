@@ -1,8 +1,0 @@
-<ng-container *ngFor="let comment of comments.reverse()">
-    <div>
-        <span class="text-muted"><small>
-            <strong>{{ comment.from.username }}</strong> • {{comment.postedAt | timeAgo}}
-        </small></span>
-        <p>{{comment.content}}</p>
-    </div>
-</ng-container>
