@@ -1,4 +1,5 @@
 export const environment = {
-    canonicalUrl: 'http://ghpages.trollrar.breddit',
+    canonicalUrl: 'https://trollrar.github.io/breddit',
+    apiUrl: 'https://breddit.equaleyes-solutions.com',
     production: true
 };

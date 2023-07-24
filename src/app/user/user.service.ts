@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LoginModalComponent} from './login/login-modal/login-modal.component';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -41,7 +42,7 @@ export class UserService {
     }
 
     public fetchAuthToken (username: string, password: string): Observable<boolean> {
-        return this.http.post<{token: string}>('/api/auth/login', {username, password})
+        return this.http.post<{ token: string }>(`${environment.apiUrl}/auth/login`, {username, password})
             .pipe(
                 catchError(({error}) => throwError(error && error.error || 'Unknown error')),
                 map(({token}) => {

@@ -4,6 +4,7 @@
 
 export const environment = {
     canonicalUrl: 'http://localhost:4200',
+    apiUrl: '/api',
     production: false
 };
 
